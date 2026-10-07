@@ -762,11 +762,11 @@
                     if (isGagal) {
                         newState.ut = currentTrueUt.toString();
                     } else {
-                        // REVISI BENAR: JIKA SUKSES LULUS MASA MONITORING
-                        if (restrukGroup === "1") {
-                            newState.ut = "0"; // Jika awal dari Lancar (Kol 1), tetap jadi 0
+                        // REVISI: KOL 1 DAN KOL 2 JADI 0, NPL (KOL 3+) JADI 1
+                        if (restrukGroup === "1" || restrukGroup === "2") {
+                            newState.ut = "0"; // Lancar
                         } else {
-                            newState.ut = "1"; // Jika awal restruk NPL (Kol 2, 3, dst), maka jadi 1 (SML 1)
+                            newState.ut = "1"; // SML 1
                         }
                     }
 
