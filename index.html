@@ -362,7 +362,7 @@
 
     <div class="sticky-wrapper">
         <div class="top-banner">
-            <img src="Banner Bagan Restruk MRM.png" alt="Banner Micro Risk Group">
+            <img src="Black_Gold_Minimalist_Elegant_Business_LinkedIn_Banner-removebg-preview.png" alt="Banner Micro Risk Group">
         </div>
         <div class="divider-line"></div>
     </div>
@@ -762,8 +762,12 @@
                     if (isGagal) {
                         newState.ut = currentTrueUt.toString();
                     } else {
-                        // REVISI BENAR: LULUS MASA MONITORING -> DPD = 0 (LANCAR)
-                        newState.ut = "0"; 
+                        // REVISI BENAR: JIKA SUKSES LULUS MASA MONITORING
+                        if (restrukGroup === "1") {
+                            newState.ut = "0"; // Jika awal dari Lancar (Kol 1), tetap jadi 0
+                        } else {
+                            newState.ut = "1"; // Jika awal restruk NPL (Kol 2, 3, dst), maka jadi 1 (SML 1)
+                        }
                     }
 
                     let detail = getDetailKategori(parseInt(newState.ut));
