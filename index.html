@@ -6,16 +6,16 @@
     <title>Simulator Dinamis Restrukturisasi Kredit</title>
     <style>
         :root {
-            --bg-main: #f0fdfa;
-            --panel-bg: #ffffff;
-            --border-color: #cbd5e1;
-            --text-dark: #0f172a;
-            --text-muted: #64748b;
-            --accent-blue: #0284c7;
-            --success-green: #10b981;
-            --fail-red: #ef4444;
-            --highlight-yellow: #fef08a;
-            --highlight-header: #fde047;
+            --bg-main: #FFFFFF;
+            --panel-bg: #FFFFFF;
+            --border-color: rgba(113, 197, 232, 0.6);
+            --text-dark: #3C3C3C;
+            --text-muted: rgba(60, 60, 60, 0.7);
+            --accent-blue: #0857C3;
+            --success-green: #71C5E8;
+            --fail-red: #3C3C3C;
+            --highlight-yellow: rgba(113, 197, 232, 0.35);
+            --highlight-header: #71C5E8;
         }
 
         body {
@@ -74,7 +74,7 @@
             background: var(--panel-bg);
             padding: 25px;
             border-radius: 12px;
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 15px -3px rgba(60, 60, 60,0.1);
             margin-bottom: 30px;
             width: 100%;
             max-width: 600px;
@@ -83,7 +83,7 @@
         }
 
         .input-group { margin-bottom: 15px; display: flex; flex-direction: column; gap: 8px; }
-        label { font-weight: 700; font-size: 13px; color: #334155; }
+        label { font-weight: 700; font-size: 13px; color: #3C3C3C; }
         
         select, input {
             padding: 10px 15px;
@@ -94,7 +94,7 @@
             transition: all 0.2s;
             font-family: inherit;
         }
-        select:focus, input:focus { border-color: var(--accent-blue); box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15); }
+        select:focus, input:focus { border-color: var(--accent-blue); box-shadow: 0 0 0 3px rgba(8, 87, 195, 0.15); }
 
         .dpd-wrapper { display: flex; align-items: center; gap: 10px; }
         .dpd-wrapper input[type="number"] { width: 120px; }
@@ -104,12 +104,12 @@
             border-radius: 20px;
             font-size: 11px;
             font-weight: bold;
-            background: #e2e8f0;
-            color: #475569;
+            background: rgba(113, 197, 232, 0.45);
+            color: rgba(60, 60, 60, 0.8);
             transition: all 0.3s;
         }
-        .badge-kolek.active { background: #dbeafe; color: #1e40af; border: 1px solid #bfdbfe; }
-        .badge-kolek.error { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+        .badge-kolek.active { background: rgba(113, 197, 232, 0.22); color: #0857C3; border: 1px solid #71C5E8; }
+        .badge-kolek.error { background: rgba(60, 60, 60, 0.08); color: #3C3C3C; border: 1px solid rgba(60, 60, 60, 0.2); }
 
         button.btn-mulai {
             background-color: var(--accent-blue);
@@ -124,8 +124,8 @@
             transition: 0.2s;
             font-size: 14px;
         }
-        button.btn-mulai:disabled { background-color: #94a3b8; cursor: not-allowed; }
-        button.btn-mulai:hover:not(:disabled) { background-color: #0369a1; }
+        button.btn-mulai:disabled { background-color: rgba(60, 60, 60, 0.45); cursor: not-allowed; }
+        button.btn-mulai:hover:not(:disabled) { background-color: #0857C3; }
 
         /* --- Wadah Utama Simulasi --- */
         .simulation-container {
@@ -183,7 +183,7 @@
             width: 100%;
             background: var(--panel-bg);
             border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+            box-shadow: 0 2px 6px rgba(60, 60, 60,0.04);
             animation: slideDown 0.4s ease-out forwards;
             overflow: hidden;
         }
@@ -194,12 +194,12 @@
         }
 
         .aksi-node {
-            border: 1px solid #cbd5e1;
+            border: 1px solid rgba(113, 197, 232, 0.6);
             border-top: 4px solid var(--accent-blue);
         }
         .aksi-node .node-header {
-            background: #f8fafc;
-            border-bottom: 1px solid #e2e8f0;
+            background: #FFFFFF;
+            border-bottom: 1px solid rgba(113, 197, 232, 0.45);
             padding: 12px;
             text-align: center;
             font-weight: 800;
@@ -226,59 +226,73 @@
         }
 
         .hasil-node {
-            border: 1px dashed #94a3b8;
-            background: #f8fafc;
+            border: 1px solid rgba(113, 197, 232, 0.6);
+            border-top: 4px solid rgba(60, 60, 60, 0.8);
+            background: #FFFFFF;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+        .hasil-node .node-header {
+            background: #FFFFFF;
+            padding: 12px;
+            text-align: center;
+            font-weight: 800;
+            font-size: 13px;
+            color: #3C3C3C;
+            border-bottom: 1px solid rgba(113, 197, 232, 0.45);
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            line-height: 1.5;
+        }
+        .hasil-node .node-header .sub-efektif {
+            display: inline-block;
+            margin-top: 4px;
+            padding: 2px 10px;
+            border-radius: 20px;
+            background: rgba(113, 197, 232, 0.45);
+            color: rgba(60, 60, 60, 0.8);
+            font-size: 10.5px;
+            font-weight: 600;
+            text-transform: none;
+            letter-spacing: 0;
+        }
+        .hasil-node .node-body {
+            padding: 14px;
+            flex: 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
-        }
-        .hasil-node .node-header {
-            background: #e2e8f0;
-            padding: 10px;
-            text-align: center;
-            font-weight: 700;
-            font-size: 12px;
-            color: #334155;
-            border-bottom: 1px solid #cbd5e1;
-            text-transform: uppercase;
-        }
-        .hasil-node .node-body {
-            padding: 12px;
         }
 
         /* --- 3 KOLOM PARAMETER DENGAN HEADER TINGGI TETAP --- */
         .param-table {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            background: #f1f5f9;
-            padding: 8px;
-            border-radius: 8px;
-            border: 1px solid #e2e8f0;
+            gap: 10px;
         }
 
         .param-card {
             display: flex;
             flex-direction: column;
-            border: 1px solid #cbd5e1;
-            border-radius: 6px;
+            border: 1px solid rgba(113, 197, 232, 0.45);
+            border-radius: 8px;
             overflow: hidden;
-            background: white;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+            background: #FFFFFF;
+            transition: all 0.2s;
         }
 
         .param-card-header {
-            background-color: #f1f5f9;
-            color: #475569;
+            background-color: transparent;
+            color: rgba(60, 60, 60, 0.7);
             font-size: 9.5px;
             font-weight: 800;
             text-transform: uppercase;
             text-align: center;
-            padding: 4px 2px;
-            border-bottom: 1px solid #cbd5e1;
-            letter-spacing: 0.3px;
+            padding: 8px 4px 2px 4px;
+            letter-spacing: 0.4px;
             line-height: 1.15;
-            height: 28px;
+            min-height: 28px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -286,32 +300,30 @@
         }
 
         .param-card-body {
-            background-color: white;
-            color: #0f172a;
-            font-size: 14px;
+            color: #3C3C3C;
+            font-size: 18px;
             font-weight: 800;
             text-align: center;
-            padding: 8px 2px;
+            padding: 2px 4px 10px 4px;
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 36px;
+            min-height: 36px;
             box-sizing: border-box;
             white-space: nowrap;
         }
 
         /* Highlight Berubah Kuning */
         .card-yellow .param-card-header {
-            background-color: var(--highlight-header) !important;
-            border-bottom-color: #facc15 !important;
-            color: #713f12 !important;
+            color: #0857C3 !important;
         }
         .card-yellow .param-card-body {
-            background-color: var(--highlight-yellow) !important;
-            color: #854d0e !important;
+            color: #0857C3 !important;
         }
         .card-yellow {
-            border-color: #facc15 !important;
+            background: var(--highlight-yellow) !important;
+            border-color: #307FE2 !important;
+            box-shadow: 0 0 0 2px rgba(48, 127, 226, 0.25);
         }
         
         .status-badge {
@@ -323,10 +335,10 @@
             display: inline-block;
             letter-spacing: 0.2px;
         }
-        .badge-success { background-color: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
-        .badge-fail { background-color: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+        .badge-success { background-color: rgba(113, 197, 232, 0.25); color: #0857C3; border: 1px solid #71C5E8; }
+        .badge-fail { background-color: rgba(60, 60, 60, 0.08); color: #3C3C3C; border: 1px solid rgba(60, 60, 60, 0.3); }
 
-        .connector-arrow { color: #94a3b8; font-size: 24px; font-weight: bold; animation: slideDown 0.3s ease; }
+        .connector-arrow { color: rgba(60, 60, 60, 0.45); font-size: 24px; font-weight: bold; animation: slideDown 0.3s ease; }
         
         .arrow-horizontal {
             font-size: 32px;
@@ -354,8 +366,440 @@
             font-size: 11px;
             font-weight: normal;
             margin-top: 6px;
-            color: #94a3b8;
+            color: rgba(60, 60, 60, 0.45);
         }
+        /* --- Info Billing (collapsible) --- */
+        .info-billing {
+            background: #FFFFFF;
+            border: 1px solid rgba(113, 197, 232, 0.45);
+            border-radius: 6px;
+            font-size: 11px;
+            color: rgba(60, 60, 60, 0.8);
+        }
+        .info-billing summary {
+            cursor: pointer;
+            padding: 7px 10px;
+            font-weight: 700;
+            color: #0857C3;
+            list-style: none;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .info-billing summary::-webkit-details-marker { display: none; }
+        .info-billing summary::after {
+            content: "▾";
+            margin-left: auto;
+            transition: transform 0.2s;
+        }
+        .info-billing[open] summary::after { transform: rotate(180deg); }
+        .info-billing[open] summary { border-bottom: 1px dashed rgba(113, 197, 232, 0.45); }
+        .info-billing-body {
+            padding: 8px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        .info-row b { color: #3C3C3C; white-space: nowrap; }
+        .info-bayar { width: 100%; margin-top: 2px; font-size: 10px; background: #FFFFFF; }
+        .info-bayar summary { padding: 5px 8px; font-size: 10px; }
+        .info-bayar .info-billing-body { padding: 6px 8px; gap: 4px; }
+        .info-note {
+            font-size: 10.5px;
+            color: rgba(60, 60, 60, 0.7);
+            line-height: 1.4;
+        }
+        /* =========================================================
+           TAMPILAN 3D / ADVANCED (override)
+           ========================================================= */
+        body {
+            background:
+                radial-gradient(1200px 600px at 10% -10%, rgba(113, 197, 232, 0.25) 0%, transparent 60%),
+                radial-gradient(900px 500px at 110% 10%, rgba(113, 197, 232, 0.22) 0%, transparent 55%),
+                linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 100%);
+            background-attachment: fixed;
+        }
+        .sticky-wrapper {
+            background: #FFFFFF;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            box-shadow: 0 6px 20px -12px rgba(60, 60, 60, 0.25);
+        }
+        .header-title h2 {
+            background: linear-gradient(90deg, #3C3C3C, #0857C3);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* Panel awal */
+        .control-panel {
+            border-radius: 16px;
+            border-top: none;
+            position: relative;
+            box-shadow:
+                0 1px 0 rgba(255,255,255,0.9) inset,
+                0 20px 40px -18px rgba(8, 87, 195, 0.35),
+                0 8px 16px -8px rgba(60, 60, 60, 0.15);
+        }
+        .control-panel::before {
+            content: "";
+            position: absolute; left: 0; right: 0; top: 0; height: 5px;
+            border-radius: 16px 16px 0 0;
+            background: linear-gradient(90deg, #0857C3, #71C5E8, #71C5E8);
+        }
+        select, input {
+            background: linear-gradient(180deg, #FFFFFF, #FFFFFF);
+            box-shadow: inset 0 1px 2px rgba(60, 60, 60, 0.06);
+        }
+        button.btn-mulai {
+            background: linear-gradient(180deg, #307FE2 0%, #0857C3 100%);
+            box-shadow: 0 4px 0 #06459B, 0 10px 18px -6px rgba(8, 87, 195, 0.55);
+            border-radius: 10px;
+            letter-spacing: 0.3px;
+            transform: translateY(0);
+        }
+        button.btn-mulai:hover:not(:disabled) {
+            background: linear-gradient(180deg, #71C5E8 0%, #0857C3 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 5px 0 #06459B, 0 14px 22px -6px rgba(8, 87, 195, 0.6);
+        }
+        button.btn-mulai:active:not(:disabled) {
+            transform: translateY(3px);
+            box-shadow: 0 1px 0 #06459B, 0 4px 8px -4px rgba(8, 87, 195, 0.5);
+        }
+        button.btn-mulai:disabled { box-shadow: 0 4px 0 rgba(60, 60, 60, 0.7); background: rgba(60, 60, 60, 0.45); }
+
+        /* Node timeline */
+        .timeline-node {
+            border-radius: 14px;
+            box-shadow:
+                0 1px 0 rgba(255,255,255,0.9) inset,
+                0 18px 30px -16px rgba(60, 60, 60, 0.28),
+                0 6px 10px -6px rgba(60, 60, 60, 0.12);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .timeline-node:hover {
+            transform: translateY(-3px);
+            box-shadow:
+                0 1px 0 rgba(255,255,255,0.9) inset,
+                0 26px 40px -18px rgba(60, 60, 60, 0.35),
+                0 10px 16px -8px rgba(60, 60, 60, 0.15);
+        }
+        .aksi-node {
+            border: 1px solid rgba(113, 197, 232, 0.5);
+            border-top: 4px solid #0857C3;
+        }
+        .aksi-node .node-header {
+            background: linear-gradient(180deg, #FFFFFF 0%, rgba(113, 197, 232, 0.1) 100%);
+        }
+
+        /* Kartu hasil: tinggi mengikuti isi, posisi di tengah baris */
+        .col-hasil { align-items: center; }
+        .hasil-node {
+            border: 1px solid #3C3C3C;
+            border-top: none;
+            background: linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 100%);
+        }
+        .hasil-node .node-header {
+            background: linear-gradient(135deg, #3C3C3C 0%, #3C3C3C 60%, #307FE2 140%);
+            color: #FFFFFF;
+            border-bottom: none;
+            padding: 12px 12px 10px 12px;
+            box-shadow: inset 0 -1px 0 rgba(255,255,255,0.08);
+        }
+        .hasil-node .node-header .sub-efektif {
+            background: rgba(255,255,255,0.14);
+            color: rgba(113, 197, 232, 0.45);
+            border: 1px solid rgba(255,255,255,0.18);
+        }
+        .hasil-node .node-body {
+            flex: none;
+            padding: 14px;
+        }
+        .node-awal { border: 1px solid #0857C3; }
+        .hasil-node .node-header.header-awal {
+            background: linear-gradient(135deg, #0857C3 0%, #0857C3 55%, #71C5E8 120%);
+        }
+
+        /* Kartu parameter 3D */
+        .param-card {
+            background: linear-gradient(180deg, #FFFFFF 0%, rgba(113, 197, 232, 0.1) 100%);
+            border: 1px solid rgba(113, 197, 232, 0.5);
+            border-bottom: 3px solid rgba(113, 197, 232, 0.6);
+            border-radius: 10px;
+            box-shadow:
+                0 1px 0 rgba(255,255,255,1) inset,
+                0 6px 12px -6px rgba(60, 60, 60, 0.18);
+        }
+        .param-card-body { text-shadow: 0 1px 0 rgba(255,255,255,0.9); }
+        .card-yellow {
+            background: linear-gradient(180deg, rgba(113, 197, 232, 0.2) 0%, #71C5E8 100%) !important;
+            border-color: #307FE2 !important;
+            border-bottom: 3px solid #0857C3 !important;
+            box-shadow:
+                0 1px 0 rgba(255,255,255,0.8) inset,
+                0 8px 16px -6px rgba(48, 127, 226, 0.45) !important;
+        }
+
+        /* Badge & panah */
+        .status-badge {
+            border-radius: 20px;
+            box-shadow: 0 2px 0 rgba(60, 60, 60,0.08), 0 6px 12px -6px rgba(60, 60, 60,0.25);
+        }
+        .badge-success { background: linear-gradient(180deg, rgba(113, 197, 232, 0.12), #71C5E8); }
+        .badge-fail { background: linear-gradient(180deg, rgba(60, 60, 60, 0.04), rgba(60, 60, 60, 0.2)); }
+        .arrow-horizontal {
+            width: 38px; height: 38px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px;
+            color: #FFFFFF;
+            background: linear-gradient(135deg, #71C5E8, #0857C3);
+            box-shadow: 0 3px 0 #06459B, 0 10px 16px -6px rgba(8, 87, 195, 0.55);
+            margin-top: 6px !important;
+        }
+        .connector-arrow {
+            width: 30px; height: 30px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 16px; color: rgba(60, 60, 60, 0.7);
+            background: linear-gradient(180deg, #FFFFFF, rgba(113, 197, 232, 0.45));
+            box-shadow: 0 2px 0 rgba(113, 197, 232, 0.6), 0 6px 10px -6px rgba(60, 60, 60,0.3);
+        }
+
+        /* Panel info (details) */
+        .info-billing {
+            border-radius: 10px;
+            background: linear-gradient(180deg, #FFFFFF, #FFFFFF);
+            box-shadow: 0 1px 0 #FFFFFF inset, 0 4px 10px -6px rgba(60, 60, 60,0.2);
+        }
+        .info-advance {
+            margin-top: 2px;
+            padding: 4px 6px;
+            border-radius: 6px;
+            background: linear-gradient(180deg, rgba(113, 197, 232, 0.12), rgba(113, 197, 232, 0.25));
+            border: 1px solid #71C5E8;
+        }
+        .info-advance b { color: #0857C3 !important; }
+        /* =========================================================
+           PALET: #0857C3 #307FE2 #71C5E8 #3C3C3C #FFFFFF
+           ========================================================= */
+        :root {
+            --c-primary: #0857C3;
+            --c-blue: #307FE2;
+            --c-sky: #71C5E8;
+            --c-dark: #3C3C3C;
+            --c-white: #FFFFFF;
+            --text-dark: #3C3C3C;
+            --text-muted: rgba(60, 60, 60, 0.7);
+            --accent-blue: #0857C3;
+        }
+        body {
+            color: var(--c-dark);
+            background:
+                radial-gradient(1100px 520px at 0% 0%, rgba(113, 197, 232, 0.22) 0%, transparent 60%),
+                radial-gradient(900px 500px at 100% 20%, rgba(48, 127, 226, 0.12) 0%, transparent 55%),
+                #FFFFFF;
+            background-attachment: fixed;
+        }
+
+        /* Header sticky: garis tepat di tepi bawah, selebar layar */
+        .sticky-wrapper {
+            width: calc(100% + 40px);
+            margin: 0 -20px;
+            padding: 8px 20px 8px 20px;
+            box-sizing: border-box;
+            background: #FFFFFF;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            box-shadow: 0 8px 18px -14px rgba(60, 60, 60, 0.45);
+            position: sticky;
+        }
+        .sticky-wrapper::after {
+            content: "";
+            position: absolute;
+            left: 0; right: 0; bottom: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #0857C3 0%, #307FE2 50%, #71C5E8 100%);
+        }
+        .top-banner { margin: 0; line-height: 0; }
+        .top-banner img { display: inline-block; }
+        .divider-line { display: none; }
+        .header-title { margin-top: 26px; }
+        .header-title h2 {
+            background: linear-gradient(90deg, #3C3C3C, #0857C3);
+            -webkit-background-clip: text; background-clip: text; color: transparent;
+        }
+
+        .control-panel::before { background: linear-gradient(90deg, #0857C3, #307FE2, #71C5E8); }
+        label { color: #3C3C3C; }
+        select, input { border-color: rgba(113, 197, 232, 0.7); color: #3C3C3C; }
+        select:focus, input:focus { border-color: #307FE2; box-shadow: 0 0 0 3px rgba(48, 127, 226, 0.2); }
+
+        button.btn-mulai { background: linear-gradient(180deg, #307FE2 0%, #0857C3 100%); }
+        button.btn-mulai:hover:not(:disabled) { background: linear-gradient(180deg, #71C5E8 0%, #0857C3 100%); }
+        button.btn-mulai:disabled { background: rgba(60, 60, 60, 0.35); box-shadow: 0 4px 0 rgba(60, 60, 60, 0.5); }
+
+        .badge-kolek { background: rgba(113, 197, 232, 0.18); color: #3C3C3C; }
+        .badge-kolek.active { background: rgba(48, 127, 226, 0.15); color: #0857C3; border: 1px solid #71C5E8; }
+        .badge-kolek.error { background: #3C3C3C; color: #FFFFFF; border: 1px solid #3C3C3C; }
+
+        .aksi-node { border: 1px solid rgba(113, 197, 232, 0.6); border-top: 4px solid #0857C3; }
+        .aksi-node .node-header { background: linear-gradient(180deg, #FFFFFF 0%, rgba(113, 197, 232, 0.12) 100%); color: #3C3C3C; }
+        .aksi-node .node-header,
+        .aksi-node .node-body { padding: 12px 14px; }
+
+        /* Kartu hasil: tinggi = kartu kiri, isi mengisi ruang */
+        .col-hasil { align-items: stretch; }
+        .hasil-node {
+            border: 1px solid #0857C3;
+            background: #FFFFFF;
+            display: flex;
+            flex-direction: column;
+        }
+        .hasil-node .node-header {
+            background: linear-gradient(135deg, #0857C3 0%, #307FE2 70%, #71C5E8 140%);
+            color: #FFFFFF;
+        }
+        .hasil-node .node-header .sub-efektif {
+            background: rgba(255, 255, 255, 0.18);
+            color: #FFFFFF;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+        }
+        .hasil-node .node-header.header-awal {
+            background: linear-gradient(135deg, #3C3C3C 0%, #0857C3 120%);
+        }
+        .node-awal { border: 1px solid #3C3C3C; }
+        .hasil-node .node-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 14px;
+        }
+        .hasil-node .param-table { flex: 1; align-items: stretch; }
+        .param-card {
+            justify-content: center;
+            background: linear-gradient(180deg, #FFFFFF 0%, rgba(113, 197, 232, 0.14) 100%);
+            border: 1px solid rgba(113, 197, 232, 0.6);
+            border-bottom: 3px solid #71C5E8;
+        }
+        .param-card-header { color: rgba(60, 60, 60, 0.75); }
+        .param-card-body { color: #3C3C3C; font-size: 20px; }
+        .card-yellow {
+            background: linear-gradient(180deg, rgba(113, 197, 232, 0.35) 0%, #71C5E8 100%) !important;
+            border-color: #307FE2 !important;
+            border-bottom: 3px solid #0857C3 !important;
+            box-shadow: 0 1px 0 rgba(255,255,255,0.7) inset, 0 8px 16px -6px rgba(8, 87, 195, 0.45) !important;
+        }
+        .card-yellow .param-card-header { color: #0857C3 !important; }
+        .card-yellow .param-card-body { color: #0857C3 !important; text-shadow: 0 1px 0 rgba(255,255,255,0.6); }
+
+        .hasil-footer {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 6px 12px;
+            padding: 8px 10px;
+            border-radius: 8px;
+            background: rgba(113, 197, 232, 0.12);
+            border: 1px dashed rgba(48, 127, 226, 0.5);
+            font-size: 11px;
+            color: rgba(60, 60, 60, 0.85);
+        }
+        .hasil-footer b { color: #3C3C3C; }
+        .hasil-footer .hf-title { font-weight: 800; color: #0857C3; }
+
+        /* Badge status */
+        .badge-success { background: linear-gradient(180deg, #FFFFFF, #71C5E8); color: #0857C3; border: 1px solid #307FE2; }
+        .badge-fail { background: linear-gradient(180deg, #3C3C3C, #3C3C3C); color: #FFFFFF; border: 1px solid #3C3C3C; }
+
+        .arrow-horizontal { background: linear-gradient(135deg, #71C5E8, #0857C3); box-shadow: 0 3px 0 #06459B, 0 10px 16px -6px rgba(8, 87, 195, 0.55); }
+        .connector-arrow { color: #0857C3; background: linear-gradient(180deg, #FFFFFF, rgba(113, 197, 232, 0.35)); box-shadow: 0 2px 0 #71C5E8, 0 6px 10px -6px rgba(60,60,60,0.3); }
+
+        .info-billing { border-color: rgba(113, 197, 232, 0.6); color: rgba(60, 60, 60, 0.85); }
+        .info-billing summary { color: #0857C3; }
+        .info-row b { color: #3C3C3C; }
+        .info-advance { background: rgba(113, 197, 232, 0.2); border: 1px solid #71C5E8; }
+        .info-advance b { color: #0857C3 !important; }
+        .footer-sub { color: rgba(60, 60, 60, 0.6); }
+        /* --- Revisi: header simetris, gagal bayar merah, kondisi awal biru --- */
+        .aksi-node, .hasil-node {
+            border: 1px solid rgba(113, 197, 232, 0.7);
+            border-top: 4px solid #0857C3;
+        }
+        .aksi-node .node-header,
+        .hasil-node:not(.node-awal) .node-header {
+            height: 112px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 14px;
+        }
+        .aksi-node .node-header br,
+        .hasil-node:not(.node-awal) .node-header br { display: none; }
+        .aksi-node .node-header > span:first-child { margin-bottom: 6px !important; }
+        .hasil-node .node-header .sub-efektif { margin-top: 6px; }
+
+        .badge-fail {
+            background: linear-gradient(180deg, #FEE2E2, #FCA5A5) !important;
+            color: #B91C1C !important;
+            border: 1px solid #F87171 !important;
+        }
+
+        .node-awal { border: 1px solid rgba(113, 197, 232, 0.7); border-top: 4px solid #0857C3; }
+        .hasil-node .node-header.header-awal {
+            background: linear-gradient(135deg, #0857C3 0%, #307FE2 65%, #71C5E8 130%);
+        }
+        /* Rincian bayar di dalam kotak hasil */
+        .hasil-node .info-bayar { width: 100%; margin-top: 0; font-size: 11px; }
+        .hasil-node .info-bayar summary { padding: 7px 10px; font-size: 11px; }
+        .hasil-node .info-bayar .info-billing-body {
+            padding: 8px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .hasil-node .info-bayar .info-row span { white-space: nowrap; }
+        /* Badge Bayar hijau */
+        .badge-success {
+            background: linear-gradient(180deg, #DCFCE7, #86EFAC) !important;
+            color: #166534 !important;
+            border: 1px solid #4ADE80 !important;
+        }
+        /* Badge di header kotak hasil */
+        .hasil-badge {
+            display: inline-block;
+            padding: 3px 9px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.3px;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+        .hb-monitoring { background: linear-gradient(180deg, #FB923C, #EA580C); color: #FFFFFF; box-shadow: 0 2px 6px -2px rgba(234, 88, 12, 0.6); }
+        .hb-setelah { background: linear-gradient(180deg, #4ADE80, #16A34A); color: #FFFFFF; box-shadow: 0 2px 6px -2px rgba(22, 163, 74, 0.6); }
+        /* Ikon status kiri-kanan */
+        .status-badge { display: inline-flex !important; align-items: center; gap: 6px; }
+        .status-badge .st-ico { width: 14px; height: 14px; flex: none; filter: drop-shadow(0 1px 1px rgba(60,60,60,0.25)); }
+        .info-sisa {
+            margin-top: 2px;
+            padding: 4px 6px;
+            border-radius: 6px;
+            background: #FEF2F2;
+            border: 1px solid #FCA5A5;
+        }
+        .info-sisa b { color: #DC2626 !important; }
     </style>
 </head>
 <body>
@@ -391,7 +835,7 @@
                 <input type="number" id="dpdInput" placeholder="0" oninput="validasiForm()" onchange="validasiForm()" onkeyup="validasiForm()">
                 <span id="dpdBadge" class="badge-kolek">Status Detail</span>
             </div>
-            <small id="dpdError" style="color: red; font-size: 11px; display: none;">DPD tidak sesuai dengan rentang Kolektibilitas.</small>
+            <small id="dpdError" style="color: #0857C3; font-weight: 700; font-size: 11px; display: none;">DPD tidak sesuai dengan rentang Kolektibilitas.</small>
         </div>
 
         <div class="input-group">
@@ -399,7 +843,12 @@
             <input type="date" id="tglRestruk" oninput="validasiForm()" onchange="validasiForm()">
         </div>
 
-        <button id="btnMulai" class="btn-mulai" disabled onclick="mulaiSimulasi()">Mulai Simulasi Monitoring</button>
+        <div class="input-group">
+            <label for="billingInput" id="lblBilling">3. Masukkan Billing:</label>
+            <input type="text" inputmode="numeric" id="billingInput" placeholder="Contoh: 1.500.000" oninput="formatInputRupiah(this); validasiForm()">
+        </div>
+
+        <button id="btnMulai" class="btn-mulai" disabled onclick="mulaiSimulasi()">Mulai Simulasi Monitoring ⏎</button>
     </div>
 
     <div id="simulationArea" class="simulation-container"></div>
@@ -414,7 +863,33 @@
         let dpdAwal = 0;
         let restrukGroup = ""; 
         let startDateStr = "";
-        let stateHistory = []; 
+        let stateHistory = [];
+        let billingBulanan = 0;
+
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelector(".control-panel").addEventListener("keydown", function (e) {
+                if (e.key === "Enter") {
+                    e.preventDefault();
+                    validasiForm();
+                    const btn = document.getElementById("btnMulai");
+                    if (!btn.disabled) mulaiSimulasi();
+                }
+            });
+        });
+
+        function parseRupiah(str) {
+            let n = parseInt(String(str || "").replace(/\D/g, ""), 10);
+            return isNaN(n) ? NaN : n;
+        }
+
+        function formatRupiah(num) {
+            return "Rp " + Math.round(num).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+
+        function formatInputRupiah(el) {
+            let n = parseRupiah(el.value);
+            el.value = isNaN(n) ? "" : n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
 
         function getDetailKategori(dpd) {
             if (dpd === 0) return { nama: "L", kol: "1" };
@@ -463,6 +938,10 @@
             const lblTgl = document.getElementById("lblTgl");
             
             document.getElementById("simulationArea").innerHTML = ""; 
+
+            const lblBilling = document.getElementById("lblBilling");
+            const nomorBilling = (baseKolVal === "" || baseKolVal === "1") ? "3" : "4";
+            lblBilling.innerText = `${nomorBilling}. Masukkan Billing:`;
 
             if (baseKolVal === "") {
                 dpdContainer.style.display = "none";
@@ -530,7 +1009,9 @@
                 }
             }
 
-            if (baseKolVal !== "" && dpdValid && tglVal !== "") {
+            const billingVal = parseRupiah(document.getElementById("billingInput").value);
+
+            if (baseKolVal !== "" && dpdValid && tglVal !== "" && billingVal > 0) {
                 btnMulai.disabled = false;
             } else {
                 btnMulai.disabled = true;
@@ -547,7 +1028,8 @@
             const baseKolVal = document.getElementById("baseKolek").value;
             dpdAwal = parseInt(document.getElementById("dpdInput").value);
             startDateStr = document.getElementById("tglRestruk").value;
-            
+            billingBulanan = parseRupiah(document.getElementById("billingInput").value);
+
             if (baseKolVal === "1") restrukGroup = "1";
             else if (baseKolVal === "2") restrukGroup = "2";
             else restrukGroup = "3";
@@ -570,6 +1052,7 @@
                 ut: initRestruk.ut, 
                 action: "start",
                 nunggakCount: 0,
+                cumPaid: 0,
                 trueUt: dpdAwal.toString()
             };
 
@@ -586,16 +1069,16 @@
             
             initRow.innerHTML = `
                 <div style="display: flex; justify-content: center; width: 100%;">
-                    <div class="timeline-node hasil-node" style="border: 2px solid var(--accent-blue); max-width: 440px;">
-                        <div class="node-header" style="background: #e0f2fe; color: #0369a1; border-bottom: 1px solid #bae6fd;">
+                    <div class="timeline-node hasil-node node-awal" style="max-width: 440px;">
+                        <div class="node-header header-awal">
                             Kondisi Awal (Tepat Setelah Restrukturisasi)<br>
-                            <span style="font-size: 10px; font-weight: normal; color: #0284c7;">Per Tanggal: <b>${displayTglAwal}</b></span>
+                            <span class="sub-efektif">Per Tanggal: <b>${displayTglAwal}</b></span>
                         </div>
                         <div class="node-body">
                             <div class="param-table">
                                 <div class="param-card">
                                     <div class="param-card-header">Kolek</div>
-                                    <div class="param-card-body" style="font-size:${kolRestruk.length > 6 ? '12px' : '14px'};">${kolRestruk}</div>
+                                    <div class="param-card-body" style="font-size:${kolRestruk.length > 6 ? '15px' : '18px'};">${kolRestruk}</div>
                                 </div>
                                 <div class="param-card">
                                     <div class="param-card-header">NPL-Method</div>
@@ -616,8 +1099,29 @@
             renderPeriode(1);
         }
 
+        function handleAksi(periodeIndex) {
+            const aksiVal = document.getElementById(`aksi-${periodeIndex}`).value;
+            const wrap = document.getElementById(`nominalWrap-${periodeIndex}`);
+            const inp = document.getElementById(`bayar-${periodeIndex}`);
+
+            if (aksiVal === "bayar") {
+                wrap.style.display = "flex";
+                inp.value = "";
+                hapusSetelahPeriode(periodeIndex);
+                inp.focus();
+                return; // tunggu nominal diisi
+            }
+
+            wrap.style.display = "none";
+            inp.value = "";
+            triggerKalkulasi(periodeIndex);
+        }
+
         function triggerKalkulasi(periodeIndex) {
             let aksiVal = document.getElementById(`aksi-${periodeIndex}`).value;
+            let nominalVal = NaN;
+            if (aksiVal === "nunggak") nominalVal = 0;
+            else if (aksiVal === "bayar") nominalVal = parseRupiah(document.getElementById(`bayar-${periodeIndex}`).value);
             let tglInput = document.getElementById(`tglAksi-${periodeIndex}`);
             let tglVal = tglInput.value;
             
@@ -634,7 +1138,7 @@
                 }
             }
 
-            kalkulasiKeputusan(periodeIndex, aksiVal, tglVal);
+            kalkulasiKeputusan(periodeIndex, nominalVal, tglVal);
         }
 
         function renderPeriode(periodeIndex) {
@@ -667,16 +1171,43 @@
             let rangeTanggalStr = `${formatTanggal(tglStartPeriode)} - ${formatTanggal(tglEndPeriode)}`;
 
             let badgeMasaHTML = periodeIndex <= 3 
-                ? `<span style="background: #e0f2fe; color: #0369a1; padding: 4px 8px; border-radius: 4px; font-size: 10px; font-weight: 800; margin-bottom: 5px; display: inline-block;">MASA MONITORING RESTRUK</span>` 
-                : `<span style="background: #ffedd5; color: #ea580c; padding: 4px 8px; border-radius: 4px; font-size: 10px; font-weight: 800; margin-bottom: 5px; display: inline-block;">SETELAH MASA MONITORING</span>`;
+                ? `<span style="background: linear-gradient(180deg, #FB923C, #EA580C); color: #FFFFFF; box-shadow: 0 2px 6px -2px rgba(234, 88, 12, 0.6); padding: 4px 8px; border-radius: 4px; font-size: 10px; font-weight: 800; margin-bottom: 5px; display: inline-block;">MASA MONITORING RESTRUK</span>` 
+                : `<span style="background: linear-gradient(180deg, #4ADE80, #16A34A); color: #FFFFFF; box-shadow: 0 2px 6px -2px rgba(22, 163, 74, 0.6); padding: 4px 8px; border-radius: 4px; font-size: 10px; font-weight: 800; margin-bottom: 5px; display: inline-block;">SETELAH MASA MONITORING</span>`;
 
-            let dropdownHTML = `<select id="aksi-${periodeIndex}" onchange="triggerKalkulasi(${periodeIndex})">
+            let dropdownHTML = `<select id="aksi-${periodeIndex}" onchange="handleAksi(${periodeIndex})">
                 <option value="">-- Pilih Aksi --</option>
                 <option value="bayar">Bayar</option>
                 <option value="nunggak">Nunggak</option>
             </select>`;
 
+            let nominalHTML = `
+                <div id="nominalWrap-${periodeIndex}" style="display: none; flex-direction: column; gap: 6px;">
+                    <input type="text" inputmode="numeric" id="bayar-${periodeIndex}" placeholder="Nominal bayar (Rp), contoh: 900.000" oninput="formatInputRupiah(this)" onchange="triggerKalkulasi(${periodeIndex})" style="padding: 10px; font-size: 13px; width: 100%; box-sizing: border-box;" title="Tekan Enter / klik di luar kolom untuk menghitung.">
+                </div>`;
+
             let inputTglHTML = `<input type="date" id="tglAksi-${periodeIndex}" min="${minDateStr}" max="${maxDateStr}" value="${maxDateStr}" onchange="triggerKalkulasi(${periodeIndex})" title="Pilih di antara ${rangeTanggalStr}">`;
+
+            let billingHTML = `
+                <details class="info-billing">
+                    <summary>ℹ️ Info Billing Periode ${periodeIndex}</summary>
+                    <div class="info-billing-body">
+                        <div class="info-row"><span>🧾 Billing periode ini</span><b>${formatRupiah(billingBulanan)}</b></div>
+                        ${periodeIndex <= 3
+                            ? `<div class="info-row"><span>📊 Akumulasi billing s.d. periode ini</span><b>${formatRupiah(billingBulanan * periodeIndex)}</b></div>`
+                            : (() => {
+                                const ps = stateHistory[periodeIndex - 1] || {};
+                                const adv = ps.advance || 0, sisa = ps.sisa || 0;
+                                return `${sisa > 0 ? `<div class="info-row"><span>⚠️ Sisa billing periode sebelumnya</span><b style="color:#DC2626;">${formatRupiah(sisa)}</b></div>` : ''}
+                                    ${adv > 0 ? `<div class="info-row"><span>⏪ Advance dari periode sebelumnya</span><b style="color:#0857C3;">${formatRupiah(adv)}</b></div>` : ''}
+                                    <div class="info-row"><span>🎯 Minimal bayar agar status Bayar</span><b>${formatRupiah(Math.max(0, billingBulanan - adv))}</b></div>
+                                    ${sisa > 0 ? `<div class="info-row"><span>💯 Bayar agar sisa billing lunas</span><b>${formatRupiah(sisa + billingBulanan - adv)}</b></div>` : ''}`;
+                            })()}
+                        <div class="info-note">💡 ${periodeIndex <= 3
+                            ? 'Dinilai <b>Bayar</b> jika akumulasi pembayaran ≥ akumulasi billing.'
+                            : 'Dinilai <b>Bayar</b> jika advance + nominal bayar ≥ billing periode ini. Kelebihan dana dipakai menutup sisa billing, sisanya diteruskan sebagai <b>advance</b>.'}</div>
+                        <div class="info-note">⏎ Setelah isi nominal, tekan <b>Enter</b> atau klik di luar kolom.</div>
+                    </div>
+                </details>`;
 
             const rowContent = document.createElement("div");
             rowContent.className = "row-content";
@@ -688,7 +1219,7 @@
                         <div class="node-header">
                             ${badgeMasaHTML}<br>
                             <span style="font-size: 15px;">PERIODE ${periodeIndex}</span><br>
-                            <span style="font-size: 11px; color: #64748b; font-weight: 600; display: block; margin-top: 3px;">Rentang Waktu: ${rangeTanggalStr}</span>
+                            <span style="font-size: 11px; color: rgba(60, 60, 60, 0.7); font-weight: 600; display: block; margin-top: 3px;">Rentang Waktu: ${rangeTanggalStr}</span>
                         </div>
                         <div class="node-body">
                             <label style="font-size: 11px; color: var(--text-muted); font-weight: bold; margin-bottom: -5px;">Pilih Aksi & Tgl Bayar:</label>
@@ -696,6 +1227,8 @@
                                 ${dropdownHTML}
                                 ${inputTglHTML}
                             </div>
+                            ${nominalHTML}
+                            ${billingHTML}
                         </div>
                     </div>
                 </div>
@@ -725,12 +1258,53 @@
             }
         }
 
-        function kalkulasiKeputusan(periodeIndex, status, tglAksiValue) {
+        function kalkulasiKeputusan(periodeIndex, nominalBayar, tglAksiValue) {
             hapusSetelahPeriode(periodeIndex);
 
-            if (!status) return; 
+            if (isNaN(nominalBayar)) return;
 
-            let newState = { action: status };
+            let prevState = (periodeIndex > 1) ? stateHistory[periodeIndex - 1] : stateHistory[0];
+
+            // --- AKUMULASI PEMBAYARAN vs BILLING ---
+            let cumPaid = (prevState.cumPaid || 0) + nominalBayar;
+            let cumBilling = billingBulanan * Math.min(periodeIndex, 3);
+            let sisaBilling = Math.max(0, cumBilling - cumPaid);
+
+            // Masa monitoring: dinilai dari akumulasi bayar vs akumulasi billing s.d. periode ini
+            // Pasca monitoring: dinilai dari nominal bayar periode ini vs billing bulanan
+            // Advance payment: kelebihan bayar dibawa ke periode berikutnya
+            let advanceMasuk = 0;      // saldo advance dari periode sebelumnya (khusus pasca monitoring)
+            let danaTersedia = 0;      // advance masuk + nominal bayar periode ini
+            let advanceKeluar = 0;     // saldo advance yang diteruskan ke periode berikutnya
+            let sisaMasuk = 0;         // sisa billing (tunggakan) dari periode sebelumnya (khusus pasca monitoring)
+            let sisaKeluar = 0;        // sisa billing yang diteruskan ke periode berikutnya
+            let totalKewajiban = 0;    // sisa billing masuk + billing periode ini
+
+            let status;
+            if (periodeIndex <= 3) {
+                status = (cumPaid >= cumBilling) ? 'bayar' : 'nunggak';
+                advanceKeluar = Math.max(0, cumPaid - cumBilling);
+                sisaKeluar = sisaBilling;
+            } else {
+                advanceMasuk = prevState.advance || 0;
+                sisaMasuk = prevState.sisa || 0;
+                danaTersedia = advanceMasuk + nominalBayar;
+                totalKewajiban = sisaMasuk + billingBulanan;
+
+                // Status dinilai dari billing periode ini
+                status = (danaTersedia >= billingBulanan) ? 'bayar' : 'nunggak';
+
+                // Saldo berjalan: dana menutup billing periode ini lalu sisa billing lama
+                if (danaTersedia >= totalKewajiban) {
+                    advanceKeluar = danaTersedia - totalKewajiban;
+                    sisaKeluar = 0;
+                } else {
+                    advanceKeluar = 0;
+                    sisaKeluar = totalKewajiban - danaTersedia;
+                }
+            }
+
+            let newState = { action: status, nominal: nominalBayar, cumPaid: cumPaid, advance: advanceKeluar, sisa: sisaKeluar };
 
             let prevNunggakCount = 0;
             if (periodeIndex > 1) {
@@ -756,18 +1330,26 @@
                     newState.kol = stateHistory[0].kol;
                     newState.isGagal = (nunggakCount > 0);
                 } else if (periodeIndex === 3) {
-                    let isGagal = (nunggakCount > 0);
-                    newState.isGagal = isGagal;
+                    let tepatPeriode = (nunggakCount === 0);
+                    let billingNol = (sisaBilling === 0);
+                    newState.isGagal = !(tepatPeriode && billingNol);
 
-                    if (isGagal) {
-                        newState.ut = currentTrueUt.toString();
-                    } else {
-                        // REVISI: KOL 1 DAN KOL 2 JADI 0, NPL (KOL 3+) JADI 1
+                    if (tepatPeriode && billingNol) {
+                        // 1. Tepat periode & billing 0 -> logika lama (membaik)
+                        // KOL 1 DAN KOL 2 JADI 0, NPL (KOL 3+) JADI 1
                         if (restrukGroup === "1" || restrukGroup === "2") {
                             newState.ut = "0"; // Lancar
                         } else {
                             newState.ut = "1"; // SML 1
                         }
+                    } else if (billingNol) {
+                        // 2. Bom pembayaran di akhir (billing 0) tapi tidak tepat periode
+                        // -> kembali ke Kolek & DPD sebelum restruk
+                        newState.ut = dpdAwal.toString();
+                    } else {
+                        // 3. Masih ada billing & tidak tepat bayar (min. 1 periode)
+                        // -> DPD sebelum restruk + 90 (3 periode)
+                        newState.ut = (dpdAwal + 90).toString();
                     }
 
                     let detail = getDetailKategori(parseInt(newState.ut));
@@ -817,14 +1399,16 @@
             }
 
             stateHistory[periodeIndex] = newState;
-
-            let prevState = (periodeIndex > 1) ? stateHistory[periodeIndex - 1] : stateHistory[0];
             let isKolYellow = (newState.kol !== prevState.kol);
             let isNplYellow = (newState.npl !== prevState.npl);
             let isUtYellow = (newState.ut !== prevState.ut);
 
             let badgeClass = (status === 'bayar') ? 'badge-success' : 'badge-fail';
-            let labelText = (status === 'bayar') ? 'BAYAR' : 'GAGAL BAYAR';
+            const ICON_CHECK = `<svg class="st-ico" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7.5" fill="#16A34A"/><path d="M4.6 8.3l2.2 2.2 4.6-4.8" fill="none" stroke="#FFFFFF" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+            const ICON_WARN = `<svg class="st-ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.2 L15.3 14.2 H0.7 Z" fill="#DC2626" stroke="#DC2626" stroke-width="1" stroke-linejoin="round"/><rect x="7.15" y="5.3" width="1.7" height="5" rx="0.85" fill="#FFFFFF"/><circle cx="8" cy="12.2" r="0.95" fill="#FFFFFF"/></svg>`;
+            let labelText = (status === 'bayar')
+                ? `<span>BAYAR</span>${ICON_CHECK}`
+                : `<span>GAGAL BAYAR</span>${ICON_WARN}`;
 
             let tglAksiObj = new Date(tglAksiValue);
             const rowContent = document.getElementById(`row-content-${periodeIndex}`);
@@ -846,14 +1430,17 @@
             rightCol.innerHTML = `
                 <div class="timeline-node hasil-node" id="hasil-node-${periodeIndex}">
                     <div class="node-header">
-                        HASIL KUALITAS KREDIT<br>
-                        <span style="font-size: 10px; font-weight: normal; text-transform: none;">Posisi Memasuki Periode ${periodeIndex + 1} (Efektif per ${formatBulan(tglBulanEfektif)})</span>
+                        ${periodeIndex <= 2
+                            ? '<span class="hasil-badge hb-monitoring">Masa Monitoring Restruk</span>'
+                            : '<span class="hasil-badge hb-setelah">Setelah Masa Monitoring</span>'}
+                        <span>📋 Hasil Kualitas Kredit</span>
+                        <span class="sub-efektif">Posisi Memasuki Periode ${periodeIndex + 1} · Efektif ${formatBulan(tglBulanEfektif)}</span>
                     </div>
                     <div class="node-body">
                         <div class="param-table">
                             <div class="param-card ${isKolYellow ? 'card-yellow' : ''}">
                                 <div class="param-card-header">Kolek</div>
-                                <div class="param-card-body" style="font-size:${newState.kol.length > 6 ? '12px' : '14px'};">${newState.kol}</div>
+                                <div class="param-card-body" style="font-size:${newState.kol.length > 6 ? '15px' : '18px'};">${newState.kol}</div>
                             </div>
                             <div class="param-card ${isNplYellow ? 'card-yellow' : ''}">
                                 <div class="param-card-header">NPL-Method</div>
@@ -864,6 +1451,22 @@
                                 <div class="param-card-body">${newState.ut}</div>
                             </div>
                         </div>
+                        <details class="info-billing info-bayar">
+                        <summary>💰 Rincian Bayar</summary>
+                        <div class="info-billing-body">
+                            <div class="info-row"><span>💵 Bayar</span><b>${formatRupiah(nominalBayar)}</b></div>
+                            ${periodeIndex <= 3
+                                ? `<div class="info-row"><span>📥 Akum. Bayar</span><b>${formatRupiah(cumPaid)}</b></div>
+                                   <div class="info-row"><span>🧾 Akum. Billing</span><b>${formatRupiah(cumBilling)}</b></div>
+                                   <div class="info-row"><span>⚠️ Sisa Billing</span><b style="color: ${sisaBilling > 0 ? '#DC2626' : '#0857C3'};">${formatRupiah(sisaBilling)}</b></div>`
+                                : `${advanceMasuk > 0 ? `<div class="info-row"><span>⏪ Advance Masuk</span><b>${formatRupiah(advanceMasuk)}</b></div>` : ''}
+                                   <div class="info-row"><span>🧮 Dana Tersedia</span><b>${formatRupiah(danaTersedia)}</b></div>
+                                   <div class="info-row"><span>🧾 Billing</span><b>${formatRupiah(billingBulanan)}</b></div>
+                                   ${sisaMasuk > 0 ? `<div class="info-row"><span>⚠️ Sisa Billing Sebelumnya</span><b style="color:#DC2626;">${formatRupiah(sisaMasuk)}</b></div>` : ''}`}
+                            ${advanceKeluar > 0 ? `<div class="info-row info-advance"><span>⏩ Advance Diteruskan</span><b>${formatRupiah(advanceKeluar)}</b></div>` : ''}
+                            ${sisaKeluar > 0 ? `<div class="info-row info-sisa"><span>⏩ Sisa Billing Diteruskan</span><b>${formatRupiah(sisaKeluar)}</b></div>` : ''}
+                        </div>
+                    </details>
                     </div>
                 </div>
             `;
