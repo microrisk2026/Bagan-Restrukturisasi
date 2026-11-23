@@ -800,6 +800,72 @@
             border: 1px solid #FCA5A5;
         }
         .info-sisa b { color: #DC2626 !important; }
+        /* Latar belakang biru lembut bergradasi */
+        body {
+            background:
+                radial-gradient(900px 600px at 0% 0%, rgba(113, 197, 232, 0.16) 0%, transparent 65%),
+                radial-gradient(900px 700px at 100% 100%, rgba(48, 127, 226, 0.09) 0%, transparent 65%),
+                linear-gradient(160deg, rgba(113, 197, 232, 0.09) 0%, rgba(48, 127, 226, 0.05) 50%, rgba(8, 87, 195, 0.05) 100%),
+                #FFFFFF !important;
+            background-attachment: fixed !important;
+        }
+        /* Baris nominal + tombol Hitung (ramah HP) */
+        .nominal-row { display: flex; gap: 8px; align-items: stretch; }
+        .nominal-row input { flex: 1; min-width: 0; padding: 10px; font-size: 13px; box-sizing: border-box; }
+        .btn-hitung {
+            flex: none;
+            padding: 0 16px;
+            min-width: 48px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 800;
+            font-size: 20px;
+            line-height: 1;
+            color: #FFFFFF;
+            cursor: pointer;
+            background: linear-gradient(180deg, #307FE2 0%, #0857C3 100%);
+            box-shadow: 0 3px 0 #06459B, 0 8px 14px -6px rgba(8, 87, 195, 0.55);
+            transition: transform 0.1s, box-shadow 0.1s;
+        }
+        .btn-hitung:active { transform: translateY(2px); box-shadow: 0 1px 0 #06459B; }
+        @media (max-width: 600px) {
+            .nominal-row input { font-size: 16px; } /* cegah auto-zoom iOS */
+            .btn-hitung { padding: 0 14px; }
+        }
+        /* =========================================================
+           RESPONSIF HP / TABLET: susun vertikal
+           ========================================================= */
+        @media (max-width: 960px) {
+            body { padding: 0 12px 20px 12px; }
+            .sticky-wrapper { width: calc(100% + 24px); margin: 0 -12px; padding: 6px 12px; }
+            .header-title h2 { font-size: 18px; }
+            .control-panel { padding: 18px; }
+
+            .row-content {
+                flex-direction: column;
+                align-items: center;
+            }
+            .col-aksi, .col-hasil, .col-v-arrow {
+                width: 100%;
+                max-width: 460px;
+                justify-content: center;
+            }
+            .col-center {
+                width: 100%;
+                max-width: 460px;
+                flex-direction: column;
+                padding: 12px 0;
+            }
+            .arrow-horizontal { transform: rotate(90deg); animation: none; }
+            .v-arrow-row .col-aksi,
+            .v-arrow-row .col-v-arrow { width: 100%; max-width: 460px; justify-content: center !important; }
+            .v-arrow-row .col-center,
+            .v-arrow-row .col-hasil { display: none; }
+            .timeline-node:hover { transform: none; }
+            .aksi-node .node-header,
+            .hasil-node:not(.node-awal) .node-header { height: auto; min-height: 96px; }
+            .param-card-body { font-size: 17px !important; }
+        }
     </style>
 </head>
 <body>
@@ -845,7 +911,7 @@
 
         <div class="input-group">
             <label for="billingInput" id="lblBilling">3. Masukkan Billing:</label>
-            <input type="text" inputmode="numeric" id="billingInput" placeholder="Contoh: 1.500.000" oninput="formatInputRupiah(this); validasiForm()">
+            <input type="text" inputmode="numeric" id="billingInput" enterkeyhint="go" placeholder="Contoh: 1.500.000" oninput="formatInputRupiah(this); validasiForm()">
         </div>
 
         <button id="btnMulai" class="btn-mulai" disabled onclick="mulaiSimulasi()">Mulai Simulasi Monitoring ⏎</button>
@@ -1029,6 +1095,7 @@
             dpdAwal = parseInt(document.getElementById("dpdInput").value);
             startDateStr = document.getElementById("tglRestruk").value;
             billingBulanan = parseRupiah(document.getElementById("billingInput").value);
+            lastCalc = {};
 
             if (baseKolVal === "1") restrukGroup = "1";
             else if (baseKolVal === "2") restrukGroup = "2";
@@ -1099,6 +1166,16 @@
             renderPeriode(1);
         }
 
+        // Simpan input terakhir yang sudah dihitung per periode (mencegah hitung ulang yang tidak perlu)
+        let lastCalc = {};
+        let timerHitung = {};
+
+        // Hitung otomatis setelah user berhenti mengetik (berguna di HP yang keyboard angkanya tanpa Enter)
+        function jadwalkanHitung(periodeIndex) {
+            clearTimeout(timerHitung[periodeIndex]);
+            timerHitung[periodeIndex] = setTimeout(() => triggerKalkulasi(periodeIndex), 1200);
+        }
+
         function handleAksi(periodeIndex) {
             const aksiVal = document.getElementById(`aksi-${periodeIndex}`).value;
             const wrap = document.getElementById(`nominalWrap-${periodeIndex}`);
@@ -1107,6 +1184,7 @@
             if (aksiVal === "bayar") {
                 wrap.style.display = "flex";
                 inp.value = "";
+                delete lastCalc[periodeIndex];
                 hapusSetelahPeriode(periodeIndex);
                 inp.focus();
                 return; // tunggu nominal diisi
@@ -1137,6 +1215,11 @@
                     tglInput.value = maxDate;
                 }
             }
+
+            clearTimeout(timerHitung[periodeIndex]);
+            const kunci = `${aksiVal}|${nominalVal}|${tglVal}`;
+            if (lastCalc[periodeIndex] === kunci && document.getElementById(`hasil-node-${periodeIndex}`)) return;
+            lastCalc[periodeIndex] = isNaN(nominalVal) ? undefined : kunci;
 
             kalkulasiKeputusan(periodeIndex, nominalVal, tglVal);
         }
@@ -1181,8 +1264,9 @@
             </select>`;
 
             let nominalHTML = `
-                <div id="nominalWrap-${periodeIndex}" style="display: none; flex-direction: column; gap: 6px;">
-                    <input type="text" inputmode="numeric" id="bayar-${periodeIndex}" placeholder="Nominal bayar (Rp), contoh: 900.000" oninput="formatInputRupiah(this)" onchange="triggerKalkulasi(${periodeIndex})" style="padding: 10px; font-size: 13px; width: 100%; box-sizing: border-box;" title="Tekan Enter / klik di luar kolom untuk menghitung.">
+                <div id="nominalWrap-${periodeIndex}" class="nominal-row" style="display: none;">
+                    <input type="text" inputmode="numeric" enterkeyhint="done" id="bayar-${periodeIndex}" placeholder="Nominal bayar (Rp), contoh: 900.000" oninput="formatInputRupiah(this); jadwalkanHitung(${periodeIndex})" onchange="triggerKalkulasi(${periodeIndex})" onkeydown="if(event.key==='Enter'){event.preventDefault(); triggerKalkulasi(${periodeIndex}); this.blur();}" title="Isi nominal lalu tekan ⏎ (Enter).">
+                    <button type="button" class="btn-hitung" onclick="triggerKalkulasi(${periodeIndex})" title="Enter" aria-label="Enter">⏎</button>
                 </div>`;
 
             let inputTglHTML = `<input type="date" id="tglAksi-${periodeIndex}" min="${minDateStr}" max="${maxDateStr}" value="${maxDateStr}" onchange="triggerKalkulasi(${periodeIndex})" title="Pilih di antara ${rangeTanggalStr}">`;
@@ -1199,13 +1283,12 @@
                                 const adv = ps.advance || 0, sisa = ps.sisa || 0;
                                 return `${sisa > 0 ? `<div class="info-row"><span>⚠️ Sisa billing periode sebelumnya</span><b style="color:#DC2626;">${formatRupiah(sisa)}</b></div>` : ''}
                                     ${adv > 0 ? `<div class="info-row"><span>⏪ Advance dari periode sebelumnya</span><b style="color:#0857C3;">${formatRupiah(adv)}</b></div>` : ''}
-                                    <div class="info-row"><span>🎯 Minimal bayar agar status Bayar</span><b>${formatRupiah(Math.max(0, billingBulanan - adv))}</b></div>
-                                    ${sisa > 0 ? `<div class="info-row"><span>💯 Bayar agar sisa billing lunas</span><b>${formatRupiah(sisa + billingBulanan - adv)}</b></div>` : ''}`;
+                                    <div class="info-row"><span>🎯 Minimal bayar agar status Bayar</span><b>${formatRupiah(Math.max(0, sisa + billingBulanan - adv))}</b></div>`;
                             })()}
                         <div class="info-note">💡 ${periodeIndex <= 3
                             ? 'Dinilai <b>Bayar</b> jika akumulasi pembayaran ≥ akumulasi billing.'
-                            : 'Dinilai <b>Bayar</b> jika advance + nominal bayar ≥ billing periode ini. Kelebihan dana dipakai menutup sisa billing, sisanya diteruskan sebagai <b>advance</b>.'}</div>
-                        <div class="info-note">⏎ Setelah isi nominal, tekan <b>Enter</b> atau klik di luar kolom.</div>
+                            : 'Dinilai <b>Bayar</b> jika advance + nominal bayar menutup sisa billing sebelumnya + billing periode ini. Selama masih ada sisa billing, status <b>Gagal Bayar</b> (UT +30). Kelebihan dana diteruskan sebagai <b>advance</b>.'}</div>
+                        <div class="info-note">⏎ Setelah isi nominal, tekan tombol <b>⏎</b> / <b>Enter</b>, atau tunggu sebentar (otomatis).</div>
                     </div>
                 </details>`;
 
@@ -1240,6 +1323,7 @@
 
         function hapusSetelahPeriode(index) {
             const area = document.getElementById("simulationArea");
+            Object.keys(lastCalc).forEach(k => { if (parseInt(k) > index) delete lastCalc[k]; });
             
             let p = index + 1;
             while (document.getElementById(`wrapper-${p}`)) {
@@ -1291,8 +1375,9 @@
                 danaTersedia = advanceMasuk + nominalBayar;
                 totalKewajiban = sisaMasuk + billingBulanan;
 
-                // Status dinilai dari billing periode ini
-                status = (danaTersedia >= billingBulanan) ? 'bayar' : 'nunggak';
+                // Status BAYAR hanya jika seluruh kewajiban (sisa billing lama + billing periode ini) tertutup.
+                // Selama masih ada sisa billing -> GAGAL BAYAR (UT +30)
+                status = (danaTersedia >= totalKewajiban) ? 'bayar' : 'nunggak';
 
                 // Saldo berjalan: dana menutup billing periode ini lalu sisa billing lama
                 if (danaTersedia >= totalKewajiban) {
