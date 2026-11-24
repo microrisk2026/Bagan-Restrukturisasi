@@ -1433,8 +1433,12 @@
                         newState.ut = dpdAwal.toString();
                     } else {
                         // 3. Masih ada billing & tidak tepat bayar (min. 1 periode)
-                        // -> DPD sebelum restruk + 90 (3 periode)
-                        newState.ut = (dpdAwal + 90).toString();
+                        // -> DPD Monitoring = DPD sebelum restruk + (N x 30)
+                        //    N = jumlah bulan billing yang belum terbayar di akhir masa monitoring
+                        //    (sisa 1x billing -> +30, 2x -> +60, 3x -> +90; sisa parsial dibulatkan ke atas)
+                        let nBulanNunggak = Math.min(3, Math.ceil(sisaBilling / billingBulanan));
+                        newState.nBulanNunggak = nBulanNunggak;
+                        newState.ut = (dpdAwal + (nBulanNunggak * 30)).toString();
                     }
 
                     let detail = getDetailKategori(parseInt(newState.ut));
